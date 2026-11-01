@@ -9,11 +9,11 @@ targets = []
 
 def tap(x, y):
     if not inside(ball):
-        ball.x = -190
-        ball.y = -190
-        speed.x = (x + 200) / 25
-        speed.y = (y + 200) / 25
-
+        ball.x = -199
+        ball.y = -199
+        speed.x = (x + 500) / 25
+        speed.y = (y + 500) / 25
+        #Se aumenta el valor inicial de la velocidad de 200 a 500
 
 def inside(xy):
     return -200 < xy.x < 200 and -200 < xy.y < 200
@@ -44,9 +44,12 @@ def move():
         if not inside(target):
             target.x = 200
             target.y = randrange(-150, 150)
-
+        target.x -= 2
+        #Se aumentó la velocidad horizontal de los proyectiles de 0.5 a 2
     if inside(ball):
-        speed.y -= 0.35
+        speed.y -= 1
+        #Para balancear el aumento de velocidad inicial de el proyectil
+        #se aumentó la gravedad de 0.35 a 1       
         ball.move(speed)
 
     dups = targets.copy()
