@@ -8,7 +8,6 @@ targets = []
 
 
 def tap(x, y):
-    """Respond to screen tap."""
     if not inside(ball):
         ball.x = -199
         ball.y = -199
@@ -17,12 +16,10 @@ def tap(x, y):
         #Se aumenta el valor inicial de la velocidad de 200 a 500
 
 def inside(xy):
-    """Return True if xy within screen."""
     return -200 < xy.x < 200 and -200 < xy.y < 200
 
 
 def draw():
-    """Draw ball and targets."""
     clear()
 
     for target in targets:
@@ -37,13 +34,16 @@ def draw():
 
 
 def move():
-    """Move ball and targets."""
     if randrange(40) == 0:
         y = randrange(-150, 150)
         target = vector(200, y)
         targets.append(target)
 
     for target in targets:
+        target.x -= 0.5
+        if not inside(target):
+            target.x = 200
+            target.y = randrange(-150, 150)
         target.x -= 2
         #Se aumentó la velocidad horizontal de los proyectiles de 0.5 a 2
     if inside(ball):
@@ -52,18 +52,14 @@ def move():
         #se aumentó la gravedad de 0.35 a 1       
         ball.move(speed)
 
-    dupe = targets.copy()
+    dups = targets.copy()
     targets.clear()
 
-    for target in dupe:
+    for target in dups:
         if abs(target - ball) > 13:
             targets.append(target)
 
     draw()
-
-    for target in targets:
-        if not inside(target):
-            return
 
     ontimer(move, 50)
 
